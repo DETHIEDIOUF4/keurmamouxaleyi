@@ -45,7 +45,7 @@ const orderSchema = new mongoose_1.Schema({
         {
             name: { type: String, required: true },
             quantity: { type: Number, required: true },
-            image: { type: String, required: true },
+            image: { type: String, required: false },
             price: { type: Number, required: true },
             product: {
                 type: mongoose_1.default.Schema.Types.ObjectId,
@@ -66,8 +66,8 @@ const orderSchema = new mongoose_1.Schema({
         postalCode: { type: String },
         country: { type: String }
     },
-    deliveryMethod: { type: String, required: true },
-    paymentMethod: { type: String, required: true },
+    deliveryMethod: { type: String, required: false },
+    paymentMethod: { type: String, required: false },
     itemsPrice: { type: Number, required: true, default: 0.0 },
     shippingPrice: { type: Number, required: true, default: 0.0 },
     taxPrice: { type: Number, required: true, default: 0.0 },

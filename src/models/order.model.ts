@@ -21,8 +21,8 @@ export interface IOrder extends Document {
     postalCode: string;
     country: string;
   };
-  deliveryMethod: string;
-  paymentMethod: string;
+  deliveryMethod?: string;
+  paymentMethod?: string;
   itemsPrice: number;
   shippingPrice: number;
   taxPrice: number;
@@ -47,7 +47,7 @@ const orderSchema = new Schema<IOrder>(
       {
         name: { type: String, required: true },
         quantity: { type: Number, required: true },
-        image: { type: String, required: true },
+        image: { type: String, required: false },
         price: { type: Number, required: true },
         product: {
           type: mongoose.Schema.Types.ObjectId,
@@ -68,8 +68,8 @@ const orderSchema = new Schema<IOrder>(
       postalCode: { type: String},
       country: { type: String}
     },
-    deliveryMethod: { type: String, required: true },
-    paymentMethod: { type: String, required: true },
+    deliveryMethod: { type: String, required: false },
+    paymentMethod: { type: String, required: false },
     itemsPrice: { type: Number, required: true, default: 0.0 },
     shippingPrice: { type: Number, required: true, default: 0.0 },
     taxPrice: { type: Number, required: true, default: 0.0 },

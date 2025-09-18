@@ -12,28 +12,43 @@ import { sendWhatsAppText, notifyAdminsOnWhatsApp } from '../services/whatsappSe
 export const createOrder = async (req: Request, res: Response) => {
   try {
     const {
-      orderItems,
-      personalInfo,
-      shippingAddress,
-      deliveryMethod,
-      paymentMethod,
-      itemsPrice,
-      shippingPrice,
-      taxPrice,
-      totalPrice
+      items,
+      totalAmount,
+      address,
+      personalInfo
     } = req.body;
+
+    // Transform the new payload format to match the existing Order model
+    const orderItems = items.map((item: any) => ({
+      name: item.name || `Product ${item.product}`, // You might want to fetch the actual product name
+      quantity: item.quantity,
+      image: item.image || undefined, // Make image optional
+      price: item.price,
+      product: item.product // This will be converted to ObjectId by Mongoose
+    })); 
+
+    const personalInfoFormatted = {
+      firstName: personalInfo.firstName,
+      lastName: personalInfo.lastName,
+      email: personalInfo.email || '',
+      phone: personalInfo.phoneNumber
+    };
+
+    const shippingAddress = {
+      street: address,
+      city: req.body.city || '',
+      postalCode: req.body.postalCode || '',
+      country: req.body.country || 'Senegal'
+    };
 
     const order = new Order({
       user: req.user?._id, // Le user est optionnel
       orderItems,
-      personalInfo,
+      personalInfo: personalInfoFormatted,
       shippingAddress,
-      deliveryMethod,
-      paymentMethod,
-      itemsPrice,
-      shippingPrice,
-      taxPrice,
-      totalPrice
+      itemsPrice: totalAmount,
+      shippingPrice: 0,
+      totalPrice: totalAmount
     });
 
     const createdOrder = await order.save();

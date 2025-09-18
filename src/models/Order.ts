@@ -16,14 +16,13 @@ export interface IOrder extends mongoose.Document {
     email: string;
     phone: string;
   };
-  deliveryMethod: 'pickup' | 'delivery';
   shippingAddress?: {
     street: string;
     city: string;
     postalCode: string;
     country: string;
   };
-  paymentMethod: string;
+  paymentMethod?: string;
   paymentResult?: {
     id: string;
     status: string;
@@ -62,7 +61,7 @@ const orderSchema = new mongoose.Schema({
       name: { type: String, required: true },
       quantity: { type: Number, required: true },
       price: { type: Number, required: true },
-      image: { type: String, required: true }
+      image: { type: String, required: false }
     }
   ],
   personalInfo: {
@@ -70,11 +69,6 @@ const orderSchema = new mongoose.Schema({
     lastName: { type: String, required: true },
     email: { type: String, required: true },
     phone: { type: String, required: true }
-  },
-  deliveryMethod: {
-    type: String,
-    required: true,
-    enum: ['pickup', 'delivery']
   },
   shippingAddress: {
     street: { type: String },
@@ -84,7 +78,7 @@ const orderSchema = new mongoose.Schema({
   },
   paymentMethod: {
     type: String,
-    required: true
+    required: false
   },
   paymentResult: {
     id: { type: String },
