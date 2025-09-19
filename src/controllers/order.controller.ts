@@ -88,7 +88,7 @@ export const createOrder = async (req: Request, res: Response) => {
 
     // Envoi de l'email à l'admin principal avec la pièce jointe Excel (buffer)
     await sendOrderMail(
-      'dethiediouf144165@gmail.com',
+      'serignemor1993@gmail.com',
       `Nouvelle commande #${createdOrder._id}`,
       `<p>Nouvelle commande passée par ${createdOrder.personalInfo.firstName} ${createdOrder.personalInfo.lastName}.</p>
       <p>Numero de telephone Client: ${createdOrder.personalInfo.phone}</p>
