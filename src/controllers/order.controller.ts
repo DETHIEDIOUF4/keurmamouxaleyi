@@ -106,7 +106,7 @@ export const createOrder = async (req: Request, res: Response) => {
 
     // Envoi de l'email au collaborateur admin
     await sendOrderMail(
-      'dethiediouf144165@gmail.com', // Remplacez par l'email du collaborateur
+      'serignemor1993@gmail.com', // Remplacez par l'email du collaborateur
       `Nouvelle commande #${createdOrder._id}`,
       `<p>Nouvelle commande passée par ${createdOrder.personalInfo.firstName} ${createdOrder.personalInfo.lastName}.</p>
       <p>Numero de telephone Client: ${createdOrder.personalInfo.phone}</p>
