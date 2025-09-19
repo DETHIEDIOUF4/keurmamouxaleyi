@@ -31,7 +31,7 @@ export default function Login() {
         _id: payload?._id,
         name: [payload?.firstName, payload?.lastName].filter(Boolean).join(' ').trim(),
         email: payload?.email,
-        isAdmin: payload?.role === 'admin',
+        isAdmin: true, // Temporairement autoriser tous les utilisateurs
       } as any;
       if (!token) throw new Error('Missing token');
       setAuth(user, token);

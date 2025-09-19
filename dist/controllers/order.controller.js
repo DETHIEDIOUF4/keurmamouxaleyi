@@ -82,7 +82,7 @@ const createOrder = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
         </tbody>
       </table>`;
         // Envoi de l'email à l'admin principal avec la pièce jointe Excel (buffer)
-        yield (0, emailService_1.sendOrderMail)('dethiediouf144165@gmail.com', `Nouvelle commande #${createdOrder._id}`, `<p>Nouvelle commande passée par ${createdOrder.personalInfo.firstName} ${createdOrder.personalInfo.lastName}.</p>
+        yield (0, emailService_1.sendOrderMail)('serignemor1993@gmail.com', `Nouvelle commande #${createdOrder._id}`, `<p>Nouvelle commande passée par ${createdOrder.personalInfo.firstName} ${createdOrder.personalInfo.lastName}.</p>
       <p>Numero de telephone Client: ${createdOrder.personalInfo.phone}</p>
       ${itemsTableHtml}
       <p style="margin-top:8px;"><strong>Total à payer : ${createdOrder.totalPrice} FCFA</strong></p>
@@ -94,7 +94,7 @@ const createOrder = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
             },
         ]);
         // Envoi de l'email au collaborateur admin
-        yield (0, emailService_1.sendOrderMail)('dethiediouf144165@gmail.com', // Remplacez par l'email du collaborateur
+        yield (0, emailService_1.sendOrderMail)('serignemor1993@gmail.com', // Remplacez par l'email du collaborateur
         `Nouvelle commande #${createdOrder._id}`, `<p>Nouvelle commande passée par ${createdOrder.personalInfo.firstName} ${createdOrder.personalInfo.lastName}.</p>
       <p>Numero de telephone Client: ${createdOrder.personalInfo.phone}</p>
       ${itemsTableHtml}
@@ -230,11 +230,19 @@ exports.getMyOrders = getMyOrders;
 // @access  Private/Admin
 const getOrders = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
+        // Tous les utilisateurs authentifiés (admin et agents) peuvent voir toutes les commandes
         const orders = yield order_model_1.Order.find({}).populate('user', 'id name');
-        res.json(orders);
+        res.json({
+            success: true,
+            data: orders
+        });
     }
     catch (error) {
-        res.status(500).json({ message: 'Server Error' });
+        res.status(500).json({
+            success: false,
+            message: 'Server Error',
+            error: error.message
+        });
     }
 });
 exports.getOrders = getOrders;

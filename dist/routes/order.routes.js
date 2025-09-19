@@ -9,7 +9,7 @@ const order_controller_1 = require("../controllers/order.controller");
 const router = express_1.default.Router();
 router.route('/')
     .post(order_controller_1.createOrder)
-    .get(auth_1.protect, auth_1.admin, order_controller_1.getOrders);
+    .get(auth_1.protect, order_controller_1.getOrders);
 router.route('/myorders')
     .get(auth_1.protect, order_controller_1.getMyOrders);
 router.route('/:id')

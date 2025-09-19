@@ -255,10 +255,19 @@ export const getMyOrders = async (req: Request, res: Response) => {
 // @access  Private/Admin
 export const getOrders = async (req: Request, res: Response) => {
   try {
+    // Tous les utilisateurs authentifiés (admin et agents) peuvent voir toutes les commandes
     const orders = await Order.find({}).populate('user', 'id name');
-    res.json(orders);
-  } catch (error) {
-    res.status(500).json({ message: 'Server Error' });
+    
+    res.json({
+      success: true,
+      data: orders
+    });
+  } catch (error: any) {
+    res.status(500).json({ 
+      success: false,
+      message: 'Server Error',
+      error: error.message 
+    });
   }
 };
 
